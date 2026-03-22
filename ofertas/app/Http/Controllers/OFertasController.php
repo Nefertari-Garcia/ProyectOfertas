@@ -12,7 +12,9 @@ class OFertasController extends Controller
      */
     public function index()
     {
-        return view('ofertas.index');
+        $datos['ofertas'] = Ofertas::paginate(5);
+
+        return view('ofertas.index', $datos);
     }
 
     /**
