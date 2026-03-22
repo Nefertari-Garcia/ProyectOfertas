@@ -23,7 +23,20 @@ Inicio (despliegue de datos)
             <td>{{$oferta->Descripcion}}</td>
             <td>{{$oferta->Precio}}</td>
             <td>{{$oferta->Descuento}}</td>
-            <td>Editar | Borrar </td>
+            <td>
+            <a href="{{url('/ofertas/'.$oferta->id.'/edit')}}">
+                Editar 
+            </a>
+
+
+            <form method="post" action="{{url('/ofertas/'.$oferta->id) }}">
+            {{csrf_field()}}
+            {{method_field('DELETE')}}
+            <button type="submit" onclick="return confirm('¿Borrar?');" > Borrar</button>
+            </form>
+            
+            
+            </td>
             
         </tr>
      @endforeach

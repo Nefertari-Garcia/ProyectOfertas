@@ -31,7 +31,7 @@ class OFertasController extends Controller
      */
     public function store(Request $request)
     {
-        $datosOferta = request()->all();
+        //$datosOferta = request()->all();
         $datosOferta = request()->except('_token');
 
         if ($request->hasFile('Foto')) {
@@ -54,25 +54,33 @@ class OFertasController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(OFertas $oFertas)
+    public function edit($id)
     {
         //
-        return view('ofertas.edit');
+        $oferta = OFertas::findOrFail($id);
+
+        return view('ofertas.edit', compact('oferta'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, OFertas $oFertas)
+    public function update(Request $request, $id)
     {
         //
+        $datosOferta = request()->except(['_token', '_method']);
+        OFertas::where('id', '=', $id)->update($datosOferta);
+
+        $oferta = OFertas::findOrFail($id);
+        return view('ofertas.edit', compact('oferta'));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(OFertas $oFertas)
+    public function destroy($id)
     {
-        //
+        OFertas::destroy($id);
+        return redirect('ofertas');
     }
 }
