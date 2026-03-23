@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\OFertas;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpKernel\HttpCache\Store;
 
 class OFertasController extends Controller
 {
@@ -69,6 +71,15 @@ class OFertasController extends Controller
     {
         //
         $datosOferta = request()->except(['_token', '_method']);
+
+        if ($request->hasFile('Foto')) {
+
+            $oferta = OFertas::findOrFail($id);
+            Storage::delete('public/' . $oferta->Foto);
+
+            $datosOferta['Foto'] = $request->file('Foto')->store('uploads', 'public');
+        }
+
         OFertas::where('id', '=', $id)->update($datosOferta);
 
         $oferta = OFertas::findOrFail($id);
