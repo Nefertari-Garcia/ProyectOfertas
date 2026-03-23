@@ -18,7 +18,9 @@ Inicio (despliegue de datos)
     @foreach($ofertas as $oferta)
         <tr>
             <td>{{$loop->iteration}}</td>
-            <td>{{$oferta->Foto}}</td>
+            <td>
+                <img src="{{asset('storage').'/'.$oferta->Foto}}" alt="" width="200">
+            </td>
             <td>{{$oferta->Nombre}}</td>
             <td>{{$oferta->Descripcion}}</td>
             <td>{{$oferta->Precio}}</td>

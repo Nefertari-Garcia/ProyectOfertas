@@ -22,7 +22,7 @@
     <br/>
     <label for="Foto">{{'Foto'}}</label >
     </br>
-    {{$oferta->Foto}}
+    <img src="{{asset('storage').'/'.$oferta->Foto}}" alt="" width="200">
     <input  type="file" name="Foto" id="Foto" value="">
     <br/>
     <input type="submit" value="Editar">
